@@ -96,9 +96,9 @@ func setupServicesAndRoutes(e *echo.Echo) {
 	http.RegisterRoutes(e, decipherService, satelliteService)
 }
 
-// @title Challenge
+// @title Rebel Communication Decoder
 // @version 1.0
-// @description This is the Challenge API documentation.
+// @description This is the Rebel Communication Decoder API documentation.
 // @contact.name API Support
 // @contact.email support@example.com
 // @host localhost:8080

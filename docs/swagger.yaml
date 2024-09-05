@@ -65,8 +65,8 @@ info:
   contact:
     email: support@example.com
     name: API Support
-  description: This is the Challenge API documentation.
-  title: Challenge
+  description: This is the Rebel Communication Decoder API documentation.
+  title: Rebel Communication Decoder
   version: "1.0"
 paths:
   /healthy:

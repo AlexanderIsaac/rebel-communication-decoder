@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is the Challenge API documentation.",
-        "title": "Challenge",
+        "description": "This is the Rebel Communication Decoder API documentation.",
+        "title": "Rebel Communication Decoder",
         "contact": {
             "name": "API Support",
             "email": "support@example.com"

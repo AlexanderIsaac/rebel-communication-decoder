@@ -237,8 +237,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8080",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Challenge",
-	Description:      "This is the Challenge API documentation.",
+	Title:            "Rebel Communication Decoder",
+	Description:      "This is the Rebel Communication Decoder API documentation.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
