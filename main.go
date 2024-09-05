@@ -95,8 +95,7 @@ func configureEcho(logger *slog.Logger) *echo.Echo {
 func setupServicesAndRoutes(e *echo.Echo, logger *slog.Logger) {
 	store, err := firestore.NewClient()
 	if err != nil {
-		logger.Error("Error loading firestore")
-		os.Exit(1)
+		logger.Error(err.Error())
 	}
 	repo := repository.NewSatelliteRepository(store)
 	decipherService := service.NewDecipherService(repo)

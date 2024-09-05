@@ -94,8 +94,8 @@ func TestGetSplitLocationSuccess(t *testing.T) {
 	}
 
 	// Mock expectations
-	mockRepo.On("GetLastMessagesReceived").Return(messages).Once()
-	mockRepo.On("GetAllSatellites").Return(satellites).Once()
+	mockRepo.On("GetLastMessagesReceived").Return(messages, nil).Once()
+	mockRepo.On("GetAllSatellites").Return(satellites, nil).Once()
 
 	// Test successful split location calculation
 	expectedPosition := coremodel.Position{X: -487.29, Y: 1557.01}
@@ -109,7 +109,7 @@ func TestGetSplitLocationError(t *testing.T) {
 	ds := NewDecipherService(mockRepo)
 
 	// Test split location calculation failure (not enough messages)
-	mockRepo.On("GetLastMessagesReceived").Return([]model.LastMessageReceived{}).Once()
+	mockRepo.On("GetLastMessagesReceived").Return([]model.LastMessageReceived{}, nil).Once()
 	position, err := ds.GetSplitLocation()
 	assert.Error(t, err)
 	assert.Equal(t, coremodel.Position{}, position)
@@ -126,7 +126,7 @@ func TestGetSplitMessageSuccess(t *testing.T) {
 		{Name: "Sato", Message: []string{"", "", "es", "mensaje"}},
 	}
 	// Mock expectations
-	mockRepo.On("GetLastMessagesReceived").Return(messages).Once()
+	mockRepo.On("GetLastMessagesReceived").Return(messages, nil).Once()
 
 	// Test successful split message decoding
 	expectedMessage := "este es un mensaje"
@@ -141,7 +141,7 @@ func TestGetSplitMessageError(t *testing.T) {
 	ds := NewDecipherService(mockRepo)
 
 	// Test split message decoding failure (no valid messages)
-	mockRepo.On("GetLastMessagesReceived").Return([]model.LastMessageReceived{}).Once()
+	mockRepo.On("GetLastMessagesReceived").Return([]model.LastMessageReceived{}, nil).Once()
 	message, err := ds.GetSplitMessage()
 	assert.Error(t, err)
 	assert.Equal(t, "", message)

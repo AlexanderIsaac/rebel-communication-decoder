@@ -13,6 +13,10 @@ import (
 	"google.golang.org/api/option"
 )
 
+type FirestoreClient interface {
+	Collection(collection string) *firestore.CollectionRef
+}
+
 type Client struct {
 	client *firestore.Client
 	ctx    context.Context

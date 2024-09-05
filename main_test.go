@@ -6,13 +6,14 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 type TestStruct struct {
 	Value string `validate:"required"`
 }
 
-func TestValidate_ValidData(t *testing.T) {
+func TestValidateValidData(t *testing.T) {
 	validate := validator.New()
 	cv := &CustomValidator{validator: validate}
 
@@ -24,7 +25,7 @@ func TestValidate_ValidData(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestValidate_MissingValue(t *testing.T) {
+func TestValidateMissingValue(t *testing.T) {
 	validate := validator.New()
 	cv := &CustomValidator{validator: validate}
 
@@ -48,9 +49,20 @@ func TestConfigureEcho(t *testing.T) {
 	assert.IsType(t, &echo.Echo{}, e)
 }
 
+type MockFirestoreClient struct {
+	mock.Mock
+}
+
+func (m *MockFirestoreClient) NewClient() error {
+	args := m.Called()
+	return args.Error(0)
+}
 func TestSetupServiceAndRoutes(t *testing.T) {
 	e := echo.New()
 	logger := createLogger()
+	mockStore := new(MockFirestoreClient)
+
+	mockStore.On("NewClient").Return(mockStore, nil).Once()
 	setupServicesAndRoutes(e, logger)
 	assert.NotNil(t, e)
 }

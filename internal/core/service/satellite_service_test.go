@@ -3,60 +3,56 @@ package service
 import (
 	"app/internal/adapter/outbound/repository/model"
 	errorMessage "app/internal/error"
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSaveReceivedMessageSuccess(t *testing.T) {
+func TestSaveReceivedMessageSatelliteExists(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	service := NewSatelliteService(mockRepo)
 
-	// Define test data
 	satellites := []model.Satellite{
-		{Name: "Kenobi", Position: model.Position{X: -500, Y: -200}},
-		{Name: "Skywalker", Position: model.Position{X: 100, Y: -100}},
-		{Name: "Sato", Position: model.Position{X: 500, Y: 100}},
+		{Name: "Satellite1"},
 	}
-	message := []string{"", "este", "es", "un", "mensaje"}
 
-	name := "Kenobi"
-	distance := 100.0
+	mockRepo.On("GetAllSatellites").Return(satellites, nil)
+	mockRepo.On("SaveReceivedMessage", "Satellite1", 100.0, []string{"Message"}).Return(true, nil)
 
-	newMessages := []model.LastMessageReceived{{Name: name, Distance: distance, Message: message}}
+	success, err := service.SaveReceivedMessage("Satellite1", 100.0, []string{"Message"})
 
-	// Set up mock expectations
-	mockRepo.On("GetAllSatellites").Return(satellites).Once()
-	mockRepo.On("SaveReceivedMessage", name, distance, message).Return(newMessages).Once()
-
-	// Test the method
-	success, err := service.SaveReceivedMessage(name, distance, message)
-
-	// Assertions
-	assert.NoError(t, err)
 	assert.True(t, success)
+	assert.NoError(t, err)
 	mockRepo.AssertExpectations(t)
 }
 
-func TestSaveReceivedMessage_SatelliteNotFound(t *testing.T) {
+func TestSaveReceivedMessageSatelliteNotFound(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	service := NewSatelliteService(mockRepo)
 
-	// Define test data
-	satellites := []model.Satellite{}
-	name := "Kenobi"
-	distance := 100.0
-	message := []string{""}
+	satellites := []model.Satellite{
+		{Name: "Satellite2"},
+	}
 
-	// Set up mock expectations
-	mockRepo.On("GetAllSatellites").Return(satellites).Once()
+	mockRepo.On("GetAllSatellites").Return(satellites, nil)
 
-	// Test the method
-	success, err := service.SaveReceivedMessage(name, distance, message)
+	success, err := service.SaveReceivedMessage("Satellite1", 100.0, []string{"Message"})
 
-	// Assertions
-	assert.Error(t, err)
 	assert.False(t, success)
-	assert.Equal(t, errorMessage.SatelliteNotFoundMessage, err.Error())
+	assert.EqualError(t, err, errorMessage.SatelliteNotFoundMessage)
+	mockRepo.AssertExpectations(t)
+}
+
+func TestSaveReceivedMessageGetAllSatellitesError(t *testing.T) {
+	mockRepo := new(MockSatellitePort)
+	service := NewSatelliteService(mockRepo)
+
+	mockRepo.On("GetAllSatellites").Return([]model.Satellite{}, errors.New("repository error"))
+
+	success, err := service.SaveReceivedMessage("Satellite1", 100.0, []string{"Message"})
+
+	assert.False(t, success)
+	assert.EqualError(t, err, errorMessage.SatelliteNotFoundMessage)
 	mockRepo.AssertExpectations(t)
 }
