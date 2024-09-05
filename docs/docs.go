@@ -73,6 +73,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/topsecret_split": {
+            "get": {
+                "description": "Retrieves the most recent calculated position and decoded message from split data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "topsecret"
+                ],
+                "summary": "Retrieve split data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.TopsecretResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/topsecret_split/{satellite_name}": {
             "post": {
                 "description": "Saves the message and distance data for a specific satellite",
@@ -109,26 +129,6 @@ const docTemplate = `{
                         "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.TopSecretSplitResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/topsecret_split_data": {
-            "get": {
-                "description": "Retrieves the most recent calculated position and decoded message from split data",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "topsecret"
-                ],
-                "summary": "Retrieve split data",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.TopsecretResponse"
                         }
                     }
                 }

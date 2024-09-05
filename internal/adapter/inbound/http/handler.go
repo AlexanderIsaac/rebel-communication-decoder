@@ -141,7 +141,7 @@ func (h *Handler) TopSecretSplit(c echo.Context) error {
 // @Tags topsecret
 // @Produce json
 // @Success 200 {object} model.TopsecretResponse
-// @Router /topsecret_split_data [get]
+// @Router /topsecret_split [get]
 func (h *Handler) TopSecretSplitData(c echo.Context) error {
 
 	// Call the decipher service to get the most recent calculated position.

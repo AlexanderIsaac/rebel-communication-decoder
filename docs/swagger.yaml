@@ -104,6 +104,20 @@ paths:
       summary: Decode message and determine location
       tags:
       - topsecret
+  /topsecret_split:
+    get:
+      description: Retrieves the most recent calculated position and decoded message
+        from split data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TopsecretResponse'
+      summary: Retrieve split data
+      tags:
+      - topsecret
   /topsecret_split/{satellite_name}:
     post:
       consumes:
@@ -129,20 +143,6 @@ paths:
           schema:
             $ref: '#/definitions/model.TopSecretSplitResponse'
       summary: Save satellite data
-      tags:
-      - topsecret
-  /topsecret_split_data:
-    get:
-      description: Retrieves the most recent calculated position and decoded message
-        from split data
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.TopsecretResponse'
-      summary: Retrieve split data
       tags:
       - topsecret
 swagger: "2.0"
