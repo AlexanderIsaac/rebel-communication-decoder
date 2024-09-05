@@ -33,10 +33,20 @@ Welcome to the Rebel Communication Decoder! This Go application is designed to d
     ```sh
     cd rebel-communication-decoder
     go mod tidy
-3. **Run the application:**:
+3. **Create a .env file**:
+   1. **Copy the example .env file:**:
+         ```sh
+         cp .env.example .env
+    2. **Open the .env file in a text editor and configure it**:
+         ```sh
+        GOOGLE_CLOUD_PROJECT=
+        GOOGLE_CLOUD_FIRESTORE_DB=
+        GOOGLE_CLOUD_CREDENTIALS=
+    Ensure that the .env file contains all necessary environment variables required.
+4. **Run the application:**:
      ```sh
      go run main.go
-4. **Explore the API documentation:**
+5. **Explore the API documentation:**
 Access the Swagger UI for live API documentation at http://localhost:8080/swagger/index.html after running the application. The Swagger configuration can also be found in the [docs/swagger.json](docs/swagger.json) file.
 
 ## License

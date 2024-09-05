@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/base64"
 	"errors"
+	"log/slog"
 	"os"
 	"time"
 
@@ -26,7 +27,9 @@ type Port interface {
 func NewClient() (*Client, error) {
 	ctx := context.Background()
 	project := os.Getenv("GOOGLE_CLOUD_PROJECT")
+	slog.Info(project)
 	firestoreDB := os.Getenv("GOOGLE_CLOUD_FIRESTORE_DB")
+	slog.Info(firestoreDB)
 	json, err := base64.StdEncoding.DecodeString(os.Getenv("GOOGLE_CLOUD_CREDENTIALS"))
 	if err != nil {
 		return nil, err
