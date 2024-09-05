@@ -5,8 +5,8 @@ steps:
   - 'deploy'
   - '--quiet'
   env:
-      - GOOGLE_CLOUD_PROJECT=${_VAL1}
-      - GOOGLE_CLOUD_FIRESTORE_DB=${_VAL2}
+      - GOOGLE_CLOUD_PROJECT=challenge-202409
+      - GOOGLE_CLOUD_FIRESTORE_DB=rebel-database
       - GOOGLE_CLOUD_CREDENTIALS=${_VAL3}
 
 options:
