@@ -1,0 +1,20 @@
+# name: Dependency Check
+
+# on: [push]
+
+# jobs:
+#   dependency-check:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Set up Dependency-Check
+#       run: |
+#         wget https://github.com/jeremylong/DependencyCheck/releases/download/v10.0.4/dependency-check-10.0.4-release.zip
+#         unzip dependency-check-10.0.4-release.zip
+#         chmod +x dependency-check/bin/dependency-check.sh
+
+#     - name: Run Dependency-Check
+#       run: |
+#         dependency-check/bin/dependency-check.sh --project my-project --scan . --format HTML --out dependency-check-report.html
