@@ -63,7 +63,7 @@ func configureEcho(logger *slog.Logger) *echo.Echo {
 
 	e.Use(slogecho.NewWithConfig(logger, config))
 	e.Use(middleware.Secure())
-	e.Use(middleware.CSRF())
+	// e.Use(middleware.CSRF())
 	e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{
 		RequestIDHandler: utils.RequestHandler,
 	}))
