@@ -37,10 +37,10 @@ func TestSaveReceivedMessage(t *testing.T) {
 	mockStore.On("Save", "satellites_messages", "Sat1", messageData).Return(true, nil)
 
 	// Call method
-	repo.SaveReceivedMessage("Sat1", 100.0, []string{"Hello", "World"})
+	_, err := repo.SaveReceivedMessage("Sat1", 100.0, []string{"Hello", "World"})
 
 	// Assertions
 	// assert.True(t, success)
-	// assert.NoError(t, err)
-	// mockStore.AssertExpectations(t)
+	assert.NoError(t, err)
+	mockStore.AssertExpectations(t)
 }
