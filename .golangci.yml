@@ -1,0 +1,26 @@
+linters:
+  enable:
+    - gosec
+    - revive
+    - errcheck
+    - staticcheck
+    - gofmt
+    - gocritic
+    - ineffassign
+    - gosimple
+    - unused
+    - stylecheck
+
+  disable:
+    - dupl
+    - gocyclo
+
+issues:
+  exclude:
+    - "error return value not checked"
+    - "should not use basic type"
+
+  exclude-rules:
+    - path: _test.go
+      text: "Error return value is not checked"
+

@@ -1,0 +1,148 @@
+basePath: /api/v1
+definitions:
+  app_internal_adapter_inbound_http_model.Position:
+    properties:
+      x:
+        type: number
+      "y":
+        type: number
+    type: object
+  dto.Satellite:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+    required:
+    - distance
+    - message
+    - name
+    type: object
+  dto.SatelliteSplit:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+    required:
+    - distance
+    - message
+    type: object
+  dto.TopSecretDTO:
+    properties:
+      satellites:
+        items:
+          $ref: '#/definitions/dto.Satellite'
+        type: array
+    required:
+    - satellites
+    type: object
+  model.Healthy:
+    properties:
+      success:
+        type: boolean
+    type: object
+  model.TopSecretSplitResponse:
+    properties:
+      savedReceivedMessage:
+        type: boolean
+    type: object
+  model.TopsecretResponse:
+    properties:
+      message:
+        type: string
+      position:
+        $ref: '#/definitions/app_internal_adapter_inbound_http_model.Position'
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: This is the Challenge API documentation.
+  title: Challenge
+  version: "1.0"
+paths:
+  /healthy:
+    get:
+      description: Returns the health status of the service
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Healthy'
+      summary: Check health status
+      tags:
+      - health
+  /topsecret:
+    post:
+      consumes:
+      - application/json
+      description: Decodes a message and calculates the location of the sender
+      parameters:
+      - description: Top Secret DTO
+        in: body
+        name: topSecretDTO
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TopSecretDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TopsecretResponse'
+      summary: Decode message and determine location
+      tags:
+      - topsecret
+  /topsecret_split/{satellite_name}:
+    post:
+      consumes:
+      - application/json
+      description: Saves the message and distance data for a specific satellite
+      parameters:
+      - description: Satellite Name
+        in: path
+        name: satellite_name
+        required: true
+        type: string
+      - description: Satellite Split DTO
+        in: body
+        name: satelliteSplit
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SatelliteSplit'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.TopSecretSplitResponse'
+      summary: Save satellite data
+      tags:
+      - topsecret
+  /topsecret_split_data:
+    get:
+      description: Retrieves the most recent calculated position and decoded message
+        from split data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TopsecretResponse'
+      summary: Retrieve split data
+      tags:
+      - topsecret
+swagger: "2.0"
