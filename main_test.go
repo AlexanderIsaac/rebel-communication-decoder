@@ -50,6 +50,7 @@ func TestConfigureEcho(t *testing.T) {
 
 func TestSetupServiceAndRoutes(t *testing.T) {
 	e := echo.New()
-	setupServicesAndRoutes(e)
+	logger := createLogger()
+	setupServicesAndRoutes(e, logger)
 	assert.NotNil(t, e)
 }

@@ -3,8 +3,6 @@ package service
 import (
 	"app/internal/adapter/outbound/repository/model"
 	coremodel "app/internal/core/model"
-	"fmt"
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -33,7 +31,6 @@ func TestGetLocationSuccess(t *testing.T) {
 	expectedPosition := coremodel.Position{X: -487.29, Y: 1557.01}
 	position, err := ds.GetLocation(distances)
 
-	fmt.Fprintln(os.Stdout, position, err)
 	assert.NoError(t, err)
 	assert.Equal(t, expectedPosition, position)
 
@@ -48,7 +45,7 @@ func TestGetLocationError(t *testing.T) {
 	// // Test location calculation failure due to missing satellites
 	mockRepo.On("GetAllSatellites").Return([]model.Satellite{}).Once()
 	position, err := ds.GetLocation(distances)
-	fmt.Fprintln(os.Stdout, position, err)
+
 	assert.Error(t, err)
 	assert.Equal(t, coremodel.Position{}, position)
 }

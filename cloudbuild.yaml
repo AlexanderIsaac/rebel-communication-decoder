@@ -4,6 +4,10 @@ steps:
   - 'app'
   - 'deploy'
   - '--quiet'
+  env:
+      - 'GOOGLE_CLOUD_PROJECT=${_GOOGLE_CLOUD_PROJECT}'
+      - 'GOOGLE_CLOUD_FIRESTORE_DB=${_GOOGLE_CLOUD_FIRESTORE_DB}'
+      - 'GOOGLE_CLOUD_CREDENTIALS=${_GOOGLE_CLOUD_CREDENTIALS}'
 
 options:
   logging: 'CLOUD_LOGGING_ONLY'

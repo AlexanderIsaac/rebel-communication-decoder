@@ -23,7 +23,11 @@ SaveLastMessage saves a new message for a specified satellite if it exists.
 */
 func (s *SatelliteService) SaveReceivedMessage(name string, distance float64, message []string) (bool, error) {
 	// Retrieve all satellites from the repository
-	satellites := s.satelliteRepository.GetAllSatellites()
+	satellites, err := s.satelliteRepository.GetAllSatellites()
+
+	if err != nil {
+		return false, errors.New(errorMessage.SatelliteNotFoundMessage)
+	}
 
 	found := false
 	// Check if the satellite with the given name exists.
@@ -39,6 +43,6 @@ func (s *SatelliteService) SaveReceivedMessage(name string, distance float64, me
 	}
 
 	// Save the message for the found satellite.
-	s.satelliteRepository.SaveReceivedMessage(name, distance, message)
-	return true, nil
+
+	return s.satelliteRepository.SaveReceivedMessage(name, distance, message)
 }

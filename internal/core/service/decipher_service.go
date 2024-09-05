@@ -29,9 +29,9 @@ The function returns the estimated position or an error if the calculation fails
 */
 func (ds *DecipherService) GetLocation(distances []model.Distance) (model.Position, error) {
 	// Retrieve all satellites from the repository
-	satellites := ds.satelliteRepository.GetAllSatellites()
+	satellites, err := ds.satelliteRepository.GetAllSatellites()
 
-	if len(satellites) == 0 {
+	if err != nil || len(satellites) == 0 {
 		return model.Position{}, errors.New(errorMessage.PositionDetermined)
 	}
 
@@ -150,7 +150,7 @@ It requires at least three messages to perform the calculation. If fewer than th
 */
 func (ds *DecipherService) GetSplitLocation() (model.Position, error) {
 	// Retrieve the last messages received from satellites
-	messages := ds.satelliteRepository.GetLastMessagesReceived()
+	messages, _ := ds.satelliteRepository.GetLastMessagesReceived()
 
 	// Check if there are at least three messages to proceed with the location calculation
 	if len(messages) < 3 {
@@ -169,7 +169,7 @@ func (ds *DecipherService) GetSplitLocation() (model.Position, error) {
 
 func (ds *DecipherService) GetSplitMessage() (string, error) {
 	// Retrieve the last messages received from satellites
-	messages := ds.satelliteRepository.GetLastMessagesReceived()
+	messages, _ := ds.satelliteRepository.GetLastMessagesReceived()
 
 	// Check if there are at least three messages to proceed with the message alignment
 	if len(messages) < 3 {

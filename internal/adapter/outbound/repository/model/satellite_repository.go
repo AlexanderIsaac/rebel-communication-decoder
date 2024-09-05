@@ -1,5 +1,9 @@
 package model
 
+import (
+	"time"
+)
+
 type Position struct {
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
@@ -11,7 +15,8 @@ type Satellite struct {
 }
 
 type LastMessageReceived struct {
-	Name     string   `json:"name"`
-	Distance float64  `json:"distance"`
-	Message  []string `json:"message"`
+	Name      string    `json:"name"`
+	Distance  float64   `json:"distance"`
+	Message   []string  `json:"message"`
+	Timestamp time.Time `json:"timestamp"`
 }

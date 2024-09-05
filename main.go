@@ -2,6 +2,7 @@ package main
 
 import (
 	"app/internal/adapter/inbound/http"
+	"app/internal/adapter/outbound/firestore"
 	"app/internal/adapter/outbound/repository"
 
 	"app/utils"
@@ -11,6 +12,8 @@ import (
 	"app/internal/core/service"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
+
 	// "github.com/labstack/echo-contrib/echoprometheus"
 	_ "app/docs"
 
@@ -89,8 +92,13 @@ func configureEcho(logger *slog.Logger) *echo.Echo {
 	return e
 }
 
-func setupServicesAndRoutes(e *echo.Echo) {
-	repo := repository.NewSatelliteRepository()
+func setupServicesAndRoutes(e *echo.Echo, logger *slog.Logger) {
+	store, err := firestore.NewClient()
+	if err != nil {
+		logger.Error("Error loading firestore")
+		os.Exit(1)
+	}
+	repo := repository.NewSatelliteRepository(store)
 	decipherService := service.NewDecipherService(repo)
 	satelliteService := service.NewSatelliteService(repo)
 	http.RegisterRoutes(e, decipherService, satelliteService)
@@ -104,9 +112,14 @@ func setupServicesAndRoutes(e *echo.Echo) {
 // @host localhost:8080
 // @BasePath /api/v1
 func main() {
+	// Load environment variables from .env file
 	logger := createLogger()
+	err := godotenv.Load()
+	if err != nil {
+		logger.Error("Error loading .env file")
+	}
 	e := configureEcho(logger)
-	setupServicesAndRoutes(e)
+	setupServicesAndRoutes(e, logger)
 
 	port := ":8080"
 	logger.Info("Server starting on port " + port)

@@ -5,7 +5,7 @@ import (
 )
 
 type SatellitePort interface {
-	GetAllSatellites() []model.Satellite
-	SaveReceivedMessage(name string, distance float64, message []string) []model.LastMessageReceived
-	GetLastMessagesReceived() []model.LastMessageReceived
+	GetAllSatellites() ([]model.Satellite, error)
+	SaveReceivedMessage(name string, distance float64, message []string) (bool, error)
+	GetLastMessagesReceived() ([]model.LastMessageReceived, error)
 }

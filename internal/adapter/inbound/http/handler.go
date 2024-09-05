@@ -5,7 +5,6 @@ import (
 	"app/internal/adapter/inbound/http/model"
 	coremodel "app/internal/core/model"
 	"app/internal/core/service"
-	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -59,7 +58,6 @@ func (h *Handler) TopSecret(c echo.Context) error {
 
 	// Validate the bound topSecretDTO object.
 	if err := c.Validate(&topSecretDTO); err != nil {
-		fmt.Println(err)
 		return echo.NewHTTPError(echo.ErrBadRequest.Code, err)
 	}
 
@@ -121,7 +119,6 @@ func (h *Handler) TopSecretSplit(c echo.Context) error {
 
 	// Validate the bound SatelliteSplit object.
 	if err := c.Validate(&satelliteSplit); err != nil {
-		fmt.Println(err)
 		return echo.NewHTTPError(echo.ErrBadRequest.Code, err)
 	}
 
