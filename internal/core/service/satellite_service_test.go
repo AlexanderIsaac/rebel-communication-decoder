@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSaveReceivedMessage_Success(t *testing.T) {
+func TestSaveReceivedMessageSuccess(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	service := NewSatelliteService(mockRepo)
 

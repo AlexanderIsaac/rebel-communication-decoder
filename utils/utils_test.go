@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TTestBodyDumpHandler_Success(t *testing.T) {
+func TTestBodyDumpHandlerSuccess(t *testing.T) {
 	e := echo.New()
 
 	req := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader([]byte(`{"foo":"bar"}`)))
@@ -21,7 +21,7 @@ func TTestBodyDumpHandler_Success(t *testing.T) {
 	assert.NotNil(t, ctx)
 }
 
-func TestBodyDumpHandler_Error(t *testing.T) {
+func TestBodyDumpHandlerError(t *testing.T) {
 
 	e := echo.New()
 

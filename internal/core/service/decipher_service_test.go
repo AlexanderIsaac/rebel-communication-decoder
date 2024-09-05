@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetLocation_Success(t *testing.T) {
+func TestGetLocationSuccess(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
@@ -39,7 +39,7 @@ func TestGetLocation_Success(t *testing.T) {
 
 }
 
-func TestGetLocation_Error(t *testing.T) {
+func TestGetLocationError(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
@@ -53,7 +53,7 @@ func TestGetLocation_Error(t *testing.T) {
 	assert.Equal(t, coremodel.Position{}, position)
 }
 
-func TestGetMessage_Success(t *testing.T) {
+func TestGetMessageSuccess(t *testing.T) {
 	ds := NewDecipherService(nil) // No dependency for this method
 
 	// Define test data
@@ -70,7 +70,7 @@ func TestGetMessage_Success(t *testing.T) {
 	assert.Equal(t, expectedMessage, message)
 }
 
-func TestGetMessage_Error(t *testing.T) {
+func TestGetMessageError(t *testing.T) {
 	ds := NewDecipherService(nil) // No dependency for this method
 
 	// Test message decoding failure (no valid messages)
@@ -80,7 +80,7 @@ func TestGetMessage_Error(t *testing.T) {
 	assert.Equal(t, "", message)
 }
 
-func TestGetSplitLocation_Success(t *testing.T) {
+func TestGetSplitLocationSuccess(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
@@ -107,7 +107,7 @@ func TestGetSplitLocation_Success(t *testing.T) {
 	assert.Equal(t, expectedPosition, position)
 }
 
-func TestGetSplitLocation_Error(t *testing.T) {
+func TestGetSplitLocationError(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
@@ -118,7 +118,7 @@ func TestGetSplitLocation_Error(t *testing.T) {
 	assert.Equal(t, coremodel.Position{}, position)
 }
 
-func TestGetSplitMessage_Success(t *testing.T) {
+func TestGetSplitMessageSuccess(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
@@ -139,7 +139,7 @@ func TestGetSplitMessage_Success(t *testing.T) {
 
 }
 
-func TestGetSplitMessage_Error(t *testing.T) {
+func TestGetSplitMessageError(t *testing.T) {
 	mockRepo := new(MockSatellitePort)
 	ds := NewDecipherService(mockRepo)
 
