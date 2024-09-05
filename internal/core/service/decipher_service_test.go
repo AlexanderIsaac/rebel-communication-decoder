@@ -25,7 +25,7 @@ func TestGetLocationSuccess(t *testing.T) {
 	}
 
 	// // Mock expectations
-	mockRepo.On("GetAllSatellites").Return(satellites).Once()
+	mockRepo.On("GetAllSatellites").Return(satellites, nil).Once()
 
 	// Test successful location calculation
 	expectedPosition := coremodel.Position{X: -487.29, Y: 1557.01}
@@ -43,7 +43,7 @@ func TestGetLocationError(t *testing.T) {
 	distances := []coremodel.Distance{}
 
 	// // Test location calculation failure due to missing satellites
-	mockRepo.On("GetAllSatellites").Return([]model.Satellite{}).Once()
+	mockRepo.On("GetAllSatellites").Return([]model.Satellite{}, nil).Once()
 	position, err := ds.GetLocation(distances)
 
 	assert.Error(t, err)
