@@ -1,0 +1,13 @@
+runtime: go122
+service: rebel-communication-decoder
+
+handlers:
+- url: /.*
+  script: auto
+  http_headers:
+    Strict-Transport-Security: max-age=3600 ; includeSubDomains
+    X-Frame-Options: sameorigin
+    X-Content-Type-Options: nosniff
+    X-Permitted-Cross-Domain-Policies: none
+    Referrer-Policy: strict-origin
+    Cache-Control: private, max-age=3600
